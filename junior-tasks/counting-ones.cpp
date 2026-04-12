@@ -10,7 +10,7 @@
 
 template <std::integral T, std::predicate<std::uint8_t> F>
 requires (!std::same_as<T, bool>)
-std::size_t count_digits_if(T num, F predicate) {
+constexpr std::size_t count_digits_if(T num, F predicate) {
     std::size_t counter = 0;
     do {
         const auto rem = num % 10;
@@ -25,7 +25,7 @@ std::size_t count_digits_if(T num, F predicate) {
 
 template <std::integral T>
 requires (!std::same_as<T, bool>)
-std::size_t count_digits(T num, const std::uint8_t digit) {
+constexpr std::size_t count_digits(T num, const std::uint8_t digit) {
     if (digit > 9) {
         throw std::invalid_argument("digit must be in [0, 9]");
     }
@@ -37,7 +37,7 @@ std::size_t count_digits(T num, const std::uint8_t digit) {
 
 template <std::integral T>
 requires (!std::same_as<T, bool>)
-std::size_t count_ones(T num) {
+constexpr std::size_t count_ones(T num) noexcept {
     return count_digits(num, 1);
 }
 
