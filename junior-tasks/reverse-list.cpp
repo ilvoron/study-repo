@@ -3,6 +3,8 @@
 
 #include <iostream>
 
+namespace junior {
+
 template <typename T>
 struct Node {
     T value;
@@ -35,14 +37,16 @@ void print_list(const Node<T>* head) {
     std::cout << std::endl;
 }
 
+}
+
 int main() {
-    Node node5 { 5 };
-    Node node4 { 4, &node5 };
-    Node node3 { 3, &node4 };
-    Node node2 { 2, &node3 };
-    Node node1 { 1, &node2 };
-    print_list(&node1);
+    junior::Node node5 { 5 };
+    junior::Node node4 { 4, &node5 };
+    junior::Node node3 { 3, &node4 };
+    junior::Node node2 { 2, &node3 };
+    junior::Node node1 { 1, &node2 };
+    junior::print_list(&node1);
     
-    auto* reversed = reverse_list(&node1);
-    print_list(reversed);
+    auto* reversed = junior::reverse_list(&node1);
+    junior::print_list(reversed);
 }

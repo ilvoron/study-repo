@@ -8,6 +8,8 @@
 #include <cstdint>
 #include <bit>
 
+namespace junior {
+
 template <std::integral T, std::predicate<std::uint8_t> F>
 requires (!std::same_as<T, bool>)
 constexpr std::size_t count_digits_if(T num, F predicate) {
@@ -41,18 +43,20 @@ constexpr std::size_t count_ones(T num) noexcept {
     return count_digits(num, 1);
 }
 
+}
+
 int main() {
     int num1 = 124124141;
     long long num2 = -48239081111324121;
     unsigned int num3 = 43121112;
 
-    std::cout << count_ones(num1) << '\n'; // 4
-    std::cout << count_ones(num2) << '\n'; // 6
-    std::cout << count_ones(num3) << '\n'; // 4
+    std::cout << junior::count_ones(num1) << '\n'; // 4
+    std::cout << junior::count_ones(num2) << '\n'; // 6
+    std::cout << junior::count_ones(num3) << '\n'; // 4
     
-    std::cout << count_digits(num1, 2) << '\n'; // 2
-    std::cout << count_digits(num2, 3) << '\n'; // 2
-    std::cout << count_digits(num3, 1) << '\n'; // 4
+    std::cout << junior::count_digits(num1, 2) << '\n'; // 2
+    std::cout << junior::count_digits(num2, 3) << '\n'; // 2
+    std::cout << junior::count_digits(num3, 1) << '\n'; // 4
     
     std::uint8_t num4 = 0;
     std::uint8_t num5 = 0b00011101;
