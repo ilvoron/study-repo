@@ -16,6 +16,7 @@ namespace junior {
               typename It,
               typename Predicate = std::less<T>>
      requires (std::random_access_iterator<It> &&
+               std::same_as<std::iter_value_t<It>, T> &&
                std::predicate<Predicate, T, T>)
     It binary_search(It start, It end, const T& value, Predicate comp = Predicate()) {
         It not_found = end;
