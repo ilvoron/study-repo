@@ -84,7 +84,7 @@ namespace middle {
     }
 
     std::int64_t heavy_task_beauty(std::int64_t count, int id) {
-        auto result = middle::heavy_task(count);
+        auto result = heavy_task(count);
         std::cout << "Task " << id << " finished! Result: " << result << '\n';
         return result;
     }
@@ -120,7 +120,7 @@ int main() {
     {
         middle::thread_pool pool(std::thread::hardware_concurrency());
         std::cout << "thread_pool(" << std::thread::hardware_concurrency() << ") created\n";
-        for (std::size_t i = 1; i <= std::thread::hardware_concurrency(); ++i) {
+        for (std::size_t i = 1; i <= std::thread::hardware_concurrency() * 3; ++i) {
             results.push_back(pool.add_task(middle::heavy_task_beauty, dist(gen), i));
         }
         std::cout << "Tasks added!\n";
