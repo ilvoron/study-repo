@@ -31,7 +31,7 @@ namespace senior {
         details::control_block<T>* control_block_{nullptr};
 
      public:
-        weak_ptr()noexcept = default;
+        weak_ptr() noexcept = default;
  
         ~weak_ptr() noexcept {
             if (control_block_ &&
@@ -55,7 +55,7 @@ namespace senior {
             other.control_block_ = nullptr;
         }
 
-        weak_ptr& operator=(const weak_ptr& other) {
+        weak_ptr& operator=(const weak_ptr& other) noexcept {
             weak_ptr copy(other);
             std::swap(control_block_, copy.control_block_);
             return *this;
@@ -130,7 +130,7 @@ namespace senior {
             other.control_block_ = nullptr;
         }
 
-        shared_ptr& operator=(const shared_ptr& other) {
+        shared_ptr& operator=(const shared_ptr& other) noexcept {
             shared_ptr copy(other);
             std::swap(control_block_, copy.control_block_);
             return *this;
@@ -150,8 +150,8 @@ namespace senior {
         const T& operator*() const { return *get(); }
 
         bool operator==(const shared_ptr& other) const noexcept { return control_block_ == other.control_block_; }
-        bool operator==(std::nullptr_t) const noexcept { return control_block_ == nullptr;  }
-        explicit  operator bool() noexcept { return control_block_ != nullptr; }
+        bool operator==(std::nullptr_t) const noexcept { return control_block_ == nullptr; }
+        explicit operator bool() noexcept { return control_block_ != nullptr; }
     };
 
     struct Tracker {
@@ -204,7 +204,7 @@ namespace senior {
             std::atomic<bool> start{false};
             std::atomic<int> success_locks{0};
 
-            // Потоки пытаются лочить и копировать
+            // Threads try to lock and copy
             for (int i = 0; i < 10; ++i) {
                 threads.emplace_back([&]() {
                     while (!start) { std::this_thread::yield(); }
